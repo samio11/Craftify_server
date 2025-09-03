@@ -2,12 +2,16 @@ import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import { globalErrorHandler } from "./app/middlewares/globalErrorHandler";
 import { notFound } from "./app/middlewares/notFound";
+import cookieParser from "cookie-parser";
 const app: Application = express();
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors());
 
 app.get("/", (req: Request, res: Response) => {
-  console.log(`Server is running successfully`);
+  res.status(200).json({
+    message: "Server is Running SuccessFully",
+  });
 });
 
 app.use(globalErrorHandler);
