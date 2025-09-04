@@ -24,4 +24,26 @@ const createUser = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(vo
         data: result,
     });
 }));
-exports.userController = { createUser };
+const updateUser = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    const payload = Object.assign(Object.assign({}, JSON.parse(req.body.data)), { userImage: (_a = req.file) === null || _a === void 0 ? void 0 : _a.path });
+    const { userId } = req.user;
+    const result = yield user_service_1.userServices.updateUser(userId, payload);
+    (0, sendResponse_1.sendResponse)(res, {
+        success: true,
+        statusCode: 201,
+        message: "User Updated Done",
+        data: result,
+    });
+}));
+const getAllUser = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const query = req === null || req === void 0 ? void 0 : req.query;
+    const result = yield user_service_1.userServices.getALlUSer(query);
+    (0, sendResponse_1.sendResponse)(res, {
+        success: true,
+        statusCode: 201,
+        message: "User info getting Done",
+        data: result,
+    });
+}));
+exports.userController = { createUser, updateUser, getAllUser };

@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userServices = void 0;
 const AppError_1 = require("../../errors/AppError");
+const QueryBuilder_1 = require("../../utils/QueryBuilder");
 const user_model_1 = require("./user.model");
 const createUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const existUser = yield user_model_1.User.findOne({ email: payload.email });
@@ -20,4 +21,25 @@ const createUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield user_model_1.User.create(payload);
     return result;
 });
-exports.userServices = { createUser };
+const updateUser = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const duplicateUser = yield user_model_1.User.findOne({
+        name: payload.name,
+        _id: { $ne: id },
+    });
+    if (duplicateUser) {
+        throw new AppError_1.AppError(401, "User is already exists");
+    }
+    const result = yield user_model_1.User.findByIdAndUpdate(id, payload, { new: true });
+    return result;
+});
+const getALlUSer = (query) => __awaiter(void 0, void 0, void 0, function* () {
+    const queryBuilder = new QueryBuilder_1.QueryBuilder(user_model_1.User.find(), query)
+        .filter()
+        .search(["name", "email", "role"])
+        .sort()
+        .fields()
+        .paginate();
+    const result = yield queryBuilder.builder();
+    return result;
+});
+exports.userServices = { createUser, updateUser, getALlUSer };

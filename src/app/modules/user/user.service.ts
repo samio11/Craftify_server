@@ -1,4 +1,5 @@
 import { AppError } from "../../errors/AppError";
+import { QueryBuilder } from "../../utils/QueryBuilder";
 import { IUser } from "./user.interface";
 import { User } from "./user.model";
 
@@ -11,4 +12,27 @@ const createUser = async (payload: IUser) => {
   return result;
 };
 
-export const userServices = { createUser };
+const updateUser = async (id: string, payload: Partial<IUser>) => {
+  const duplicateUser = await User.findOne({
+    name: payload.name,
+    _id: { $ne: id },
+  });
+  if (duplicateUser) {
+    throw new AppError(401, "User is already exists");
+  }
+  const result = await User.findByIdAndUpdate(id, payload, { new: true });
+  return result;
+};
+
+const getALlUSer = async (query: Record<string, string>) => {
+  const queryBuilder = new QueryBuilder(User.find(), query)
+    .filter()
+    .search(["name", "email", "role"])
+    .sort()
+    .fields()
+    .paginate();
+  const result = await queryBuilder.builder();
+  return result;
+};
+
+export const userServices = { createUser, updateUser, getALlUSer };
