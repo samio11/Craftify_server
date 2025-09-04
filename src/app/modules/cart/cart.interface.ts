@@ -1,13 +1,17 @@
 import { Types } from "mongoose";
 
-export interface ICartItem {
-  productId: Types.ObjectId;
-  priceAtAdd: number;
-  quantity: number;
+export enum CART_STATUS {
+  PENDING = "PENDING",
+  CANCEL = "CANCEL",
+  COMPLETE = "COMPLETE",
+  FAILED = "FAILED",
 }
 
 export interface ICart {
   _id?: string;
   userId: Types.ObjectId;
-  items: ICartItem[];
+  productId: Types.ObjectId;
+  priceAtAdd: number;
+  quantity: number;
+  status: CART_STATUS;
 }
