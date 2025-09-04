@@ -1,3 +1,5 @@
+import { Types } from "mongoose";
+
 export enum PAYMENT_STATUS {
   PENDING = "PENDING",
   CANCEL = "CANCEL",
@@ -7,9 +9,9 @@ export enum PAYMENT_STATUS {
 
 export interface IPayment {
   _id?: string;
-  cartId: string;
+  cartId: Types.ObjectId;
   transection_id: string;
-  amount: string;
-  invoiceUrl: string;
+  amount: number;
+  invoiceUrl?: string;
   status: string;
 }

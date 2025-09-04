@@ -22,7 +22,7 @@ const sslPaymentInit = async (payload: ISSLCommerz) => {
       product_profile: "general",
       cus_name: payload.name,
       cus_email: payload.email,
-      cus_add1: payload.address,
+      cus_add1: payload.address || "Nikunja-02,Dhaka",
       cus_add2: "N/A",
       cus_city: "Dhaka",
       cus_state: "Dhaka",

@@ -7,6 +7,8 @@ const auth_routes_1 = require("../modules/auth/auth.routes");
 const category_routes_1 = require("../modules/category/category.routes");
 const product_routes_1 = require("../modules/product/product.routes");
 const review_routes_1 = require("../modules/review/review.routes");
+const cart_routes_1 = require("../modules/cart/cart.routes");
+const payment_routes_1 = require("../modules/payment/payment.routes");
 exports.rootRouter = (0, express_1.Router)();
 const moduleRoutes = [
     {
@@ -28,6 +30,14 @@ const moduleRoutes = [
     {
         path: "/review",
         element: review_routes_1.reviewRoutes,
+    },
+    {
+        path: "/cart",
+        element: cart_routes_1.cartRoutes,
+    },
+    {
+        path: "/payment",
+        element: payment_routes_1.paymentRoutes,
     },
 ];
 moduleRoutes.forEach((x) => exports.rootRouter.use(x.path, x.element));

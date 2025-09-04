@@ -4,6 +4,8 @@ import { authRoutes } from "../modules/auth/auth.routes";
 import { categoryRoutes } from "../modules/category/category.routes";
 import { productRoutes } from "../modules/product/product.routes";
 import { reviewRoutes } from "../modules/review/review.routes";
+import { cartRoutes } from "../modules/cart/cart.routes";
+import { paymentRoutes } from "../modules/payment/payment.routes";
 
 export const rootRouter = Router();
 
@@ -27,6 +29,14 @@ const moduleRoutes = [
   {
     path: "/review",
     element: reviewRoutes,
+  },
+  {
+    path: "/cart",
+    element: cartRoutes,
+  },
+  {
+    path: "/payment",
+    element: paymentRoutes,
   },
 ];
 

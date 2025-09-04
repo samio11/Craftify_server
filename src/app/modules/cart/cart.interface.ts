@@ -9,9 +9,10 @@ export enum CART_STATUS {
 
 export interface ICart {
   _id?: string;
-  userId: Types.ObjectId;
+  userId?: Types.ObjectId;
   productId: Types.ObjectId;
-  priceAtAdd: number;
+  paymentId?: Types.ObjectId;
+  priceAtAdd?: number;
   quantity: number;
   status: CART_STATUS;
 }
