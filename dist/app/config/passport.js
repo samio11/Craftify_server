@@ -28,7 +28,8 @@ passport_1.default.use(new passport_local_1.Strategy({
         if (!existUser) {
             return done(null, false, { message: "User is not exists" });
         }
-        const passwordMatch = bcrypt_1.default.compare(password, existUser.password);
+        const passwordMatch = yield bcrypt_1.default.compare(password, existUser.password);
+        console.log(passwordMatch);
         if (!passwordMatch) {
             return done(null, false, { message: "Password is not matched" });
         }
