@@ -31,7 +31,7 @@ const updateUser = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(vo
     const result = yield user_service_1.userServices.updateUser(userId, payload);
     (0, sendResponse_1.sendResponse)(res, {
         success: true,
-        statusCode: 201,
+        statusCode: 200,
         message: "User Updated Done",
         data: result,
     });
@@ -41,9 +41,19 @@ const getAllUser = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(vo
     const result = yield user_service_1.userServices.getALlUSer(query);
     (0, sendResponse_1.sendResponse)(res, {
         success: true,
-        statusCode: 201,
+        statusCode: 200,
         message: "User info getting Done",
         data: result,
     });
 }));
-exports.userController = { createUser, updateUser, getAllUser };
+const getUser = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userId } = req === null || req === void 0 ? void 0 : req.user;
+    const result = yield user_service_1.userServices.getUser(userId);
+    (0, sendResponse_1.sendResponse)(res, {
+        success: true,
+        statusCode: 200,
+        message: "User info getting Done",
+        data: result,
+    });
+}));
+exports.userController = { createUser, updateUser, getAllUser, getUser };

@@ -35,4 +35,9 @@ const getALlUSer = async (query: Record<string, string>) => {
   return result;
 };
 
-export const userServices = { createUser, updateUser, getALlUSer };
+const getUser = async (id: string) => {
+  const result = await User.findById(id);
+  return result;
+};
+
+export const userServices = { createUser, updateUser, getALlUSer, getUser };

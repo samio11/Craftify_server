@@ -12,6 +12,11 @@ routes.post(
   userController.createUser
 );
 routes.get(
+  "/info",
+  checkAuth([...Object.values(IRole)]),
+  userController.getUser
+);
+routes.get(
   "/get-users",
   checkAuth([...Object.values(IRole)]),
   userController.getAllUser

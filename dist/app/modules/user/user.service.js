@@ -42,4 +42,8 @@ const getALlUSer = (query) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield queryBuilder.builder();
     return result;
 });
-exports.userServices = { createUser, updateUser, getALlUSer };
+const getUser = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield user_model_1.User.findById(id);
+    return result;
+});
+exports.userServices = { createUser, updateUser, getALlUSer, getUser };

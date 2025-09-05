@@ -8,6 +8,7 @@ const checkAuth_1 = require("../../middlewares/checkAuth");
 const user_interface_1 = require("./user.interface");
 const routes = (0, express_1.Router)();
 routes.post("/create-user", multer_config_1.multerUpload.single("file"), user_controller_1.userController.createUser);
+routes.get("/info", (0, checkAuth_1.checkAuth)([...Object.values(user_interface_1.IRole)]), user_controller_1.userController.getUser);
 routes.get("/get-users", (0, checkAuth_1.checkAuth)([...Object.values(user_interface_1.IRole)]), user_controller_1.userController.getAllUser);
 routes.patch("/update-user", multer_config_1.multerUpload.single("file"), (0, checkAuth_1.checkAuth)([...Object.values(user_interface_1.IRole)]), user_controller_1.userController.updateUser);
 exports.userRoutes = routes;

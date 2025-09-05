@@ -26,7 +26,7 @@ const updateUser = catchAsync(async (req, res, next) => {
   const result = await userServices.updateUser(userId, payload);
   sendResponse(res, {
     success: true,
-    statusCode: 201,
+    statusCode: 200,
     message: "User Updated Done",
     data: result,
   });
@@ -37,10 +37,21 @@ const getAllUser = catchAsync(async (req, res, next) => {
   const result = await userServices.getALlUSer(query as Record<string, string>);
   sendResponse(res, {
     success: true,
-    statusCode: 201,
+    statusCode: 200,
+    message: "User info getting Done",
+    data: result,
+  });
+});
+const getUser = catchAsync(async (req, res, next) => {
+  const { userId } = req?.user as JwtPayload;
+
+  const result = await userServices.getUser(userId);
+  sendResponse(res, {
+    success: true,
+    statusCode: 200,
     message: "User info getting Done",
     data: result,
   });
 });
 
-export const userController = { createUser, updateUser, getAllUser };
+export const userController = { createUser, updateUser, getAllUser, getUser };
