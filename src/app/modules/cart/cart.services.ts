@@ -1,5 +1,6 @@
 import { AppError } from "../../errors/AppError";
 import { generateTransictionId } from "../../utils/generateTransictionId";
+import { QueryBuilder } from "../../utils/QueryBuilder";
 import { IPayment, PAYMENT_STATUS } from "../payment/payment.interface";
 import { Payment } from "../payment/payment.model";
 import { Product } from "../product/products.model";
@@ -125,4 +126,35 @@ const deleteCart = async (cartId: string, userId: string) => {
   }
 };
 
-export const cartServices = { createCart, deleteCart };
+export const cartDataForUser = async (userId: string) => {
+  const result = await Cart.find({ userId: userId })
+    .populate("productId")
+    .populate("paymentId");
+  if (!result) {
+    return null;
+  } else {
+    return result;
+  }
+};
+
+export const cartDataForAdmin = async (query: Record<string, string>) => {
+  const queryBuilder = new QueryBuilder(Cart.find(), query)
+    .fields()
+    .fields()
+    .sort()
+    .paginate();
+
+  const result = await queryBuilder
+    .builder()
+    .populate("userId")
+    .populate("productId")
+    .populate("paymentId");
+  return result;
+};
+
+export const cartServices = {
+  createCart,
+  deleteCart,
+  cartDataForUser,
+  cartDataForAdmin,
+};

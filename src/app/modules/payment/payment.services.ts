@@ -122,9 +122,15 @@ const cancelPayment = async (query: Record<string, string>) => {
   }
 };
 
+const getAllPaymentData = async () => {
+  const result = await Payment.find().populate("cartId");
+  return result;
+};
+
 export const paymentServices = {
   initPayment,
   successPayment,
   failPayment,
   cancelPayment,
+  getAllPaymentData,
 };

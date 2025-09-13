@@ -49,9 +49,19 @@ const canceledPayment = (0, catchAsync_1.catchAsync)((req, res, next) => __await
         res.redirect(`${config_1.default.SSL_SUCCESS_FRONTEND_URL}?transactionId=${query.transactionId}&message=${result.message}&amount=${query.amount}&status=${query.status}`);
     }
 }));
+const getAllPaymentData = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield payment_services_1.paymentServices.getAllPaymentData();
+    (0, sendResponse_1.sendResponse)(res, {
+        statusCode: 200,
+        message: "Payment Data Getted",
+        success: true,
+        data: result,
+    });
+}));
 exports.paymentController = {
     initPayment,
     successfulPayment,
     failPayment,
     canceledPayment,
+    getAllPaymentData,
 };

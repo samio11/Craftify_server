@@ -47,8 +47,8 @@ const updateReview = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(
     });
 }));
 const deleteReview = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
-    const id = (_a = req === null || req === void 0 ? void 0 : req.params) === null || _a === void 0 ? void 0 : _a.id;
+    var _b;
+    const id = (_b = req === null || req === void 0 ? void 0 : req.params) === null || _b === void 0 ? void 0 : _b.id;
     const { userId } = req === null || req === void 0 ? void 0 : req.user;
     const result = yield review_services_1.reviewServices.deleteReview(id, userId);
     (0, sendResponse_1.sendResponse)(res, {

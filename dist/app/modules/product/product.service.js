@@ -38,7 +38,10 @@ const getAllProducts = (query) => __awaiter(void 0, void 0, void 0, function* ()
         .sort()
         .fields()
         .paginate();
-    const result = yield queryBuilder.builder();
+    const result = yield queryBuilder
+        .builder()
+        .populate("categoryId")
+        .populate("sellerId");
     return result;
 });
 exports.productServices = { createProduct, getAllProducts };

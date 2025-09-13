@@ -12,4 +12,15 @@ routes.delete(
   cartController.deleteCart
 );
 
+routes.get(
+  "/get",
+  checkAuth([IRole.customer]),
+  cartController.getAllCartForUser
+);
+routes.get(
+  "/get-admin",
+  checkAuth([IRole.admin]),
+  cartController.getAllCartForAdmin
+);
+
 export const cartRoutes = routes;

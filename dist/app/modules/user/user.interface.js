@@ -7,4 +7,4 @@ var IRole;
     IRole["customer"] = "customer";
     IRole["seller"] = "seller";
     IRole["admin"] = "admin";
-})(IRole || (exports.IRole = IRole = {}));
+})(IRole = exports.IRole || (exports.IRole = {}));

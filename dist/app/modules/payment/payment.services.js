@@ -98,9 +98,14 @@ const cancelPayment = (query) => __awaiter(void 0, void 0, void 0, function* () 
         throw err;
     }
 });
+const getAllPaymentData = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield payment_model_1.Payment.find().populate("cartId");
+    return result;
+});
 exports.paymentServices = {
     initPayment,
     successPayment,
     failPayment,
     cancelPayment,
+    getAllPaymentData,
 };

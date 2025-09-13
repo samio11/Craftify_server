@@ -13,7 +13,7 @@ routes.post(
 
 routes.get(
   "/get",
-  checkAuth([IRole.admin, IRole.customer]),
+  
   reviewControllers.getAllReview
 );
 routes.patch(

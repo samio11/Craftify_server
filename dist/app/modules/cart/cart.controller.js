@@ -35,4 +35,29 @@ const deleteCart = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(vo
         data: result,
     });
 }));
-exports.cartController = { createCart, deleteCart };
+const getAllCartForUser = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userId } = req === null || req === void 0 ? void 0 : req.user;
+    const result = yield cart_services_1.cartServices.cartDataForUser(userId);
+    (0, sendResponse_1.sendResponse)(res, {
+        statusCode: 200,
+        success: true,
+        message: "Cart Getting Done",
+        data: result,
+    });
+}));
+const getAllCartForAdmin = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const query = req === null || req === void 0 ? void 0 : req.query;
+    const result = yield cart_services_1.cartServices.cartDataForAdmin(query);
+    (0, sendResponse_1.sendResponse)(res, {
+        statusCode: 200,
+        success: true,
+        message: "Cart Getting Done",
+        data: result,
+    });
+}));
+exports.cartController = {
+    createCart,
+    deleteCart,
+    getAllCartForUser,
+    getAllCartForAdmin,
+};

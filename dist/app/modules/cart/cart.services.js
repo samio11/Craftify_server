@@ -9,9 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cartServices = void 0;
+exports.cartServices = exports.cartDataForAdmin = exports.cartDataForUser = void 0;
 const AppError_1 = require("../../errors/AppError");
 const generateTransictionId_1 = require("../../utils/generateTransictionId");
+const QueryBuilder_1 = require("../../utils/QueryBuilder");
 const payment_interface_1 = require("../payment/payment.interface");
 const payment_model_1 = require("../payment/payment.model");
 const products_model_1 = require("../product/products.model");
@@ -70,12 +71,12 @@ const createCart = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 const deleteCart = (cartId, userId) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
+    var _b;
     const existCart = yield cart_model_1.Cart.findById(cartId);
     if (!existCart) {
         throw new AppError_1.AppError(401, "Cart is not Exists");
     }
-    if (userId !== ((_a = existCart === null || existCart === void 0 ? void 0 : existCart.userId) === null || _a === void 0 ? void 0 : _a.toString())) {
+    if (userId !== ((_b = existCart === null || existCart === void 0 ? void 0 : existCart.userId) === null || _b === void 0 ? void 0 : _b.toString())) {
         throw new AppError_1.AppError(401, "You Cant Delete this cart");
     }
     const session = yield cart_model_1.Cart.startSession();
@@ -102,4 +103,35 @@ const deleteCart = (cartId, userId) => __awaiter(void 0, void 0, void 0, functio
         throw err;
     }
 });
-exports.cartServices = { createCart, deleteCart };
+const cartDataForUser = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield cart_model_1.Cart.find({ userId: userId })
+        .populate("productId")
+        .populate("paymentId");
+    if (!result) {
+        return null;
+    }
+    else {
+        return result;
+    }
+});
+exports.cartDataForUser = cartDataForUser;
+const cartDataForAdmin = (query) => __awaiter(void 0, void 0, void 0, function* () {
+    const queryBuilder = new QueryBuilder_1.QueryBuilder(cart_model_1.Cart.find(), query)
+        .fields()
+        .fields()
+        .sort()
+        .paginate();
+    const result = yield queryBuilder
+        .builder()
+        .populate("userId")
+        .populate("productId")
+        .populate("paymentId");
+    return result;
+});
+exports.cartDataForAdmin = cartDataForAdmin;
+exports.cartServices = {
+    createCart,
+    deleteCart,
+    cartDataForUser: exports.cartDataForUser,
+    cartDataForAdmin: exports.cartDataForAdmin,
+};

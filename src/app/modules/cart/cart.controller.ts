@@ -29,4 +29,32 @@ const deleteCart = catchAsync(async (req, res, next) => {
   });
 });
 
-export const cartController = { createCart, deleteCart };
+const getAllCartForUser = catchAsync(async (req, res, next) => {
+  const { userId } = req?.user as JwtPayload;
+  const result = await cartServices.cartDataForUser(userId);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Cart Getting Done",
+    data: result,
+  });
+});
+const getAllCartForAdmin = catchAsync(async (req, res, next) => {
+  const query = req?.query;
+  const result = await cartServices.cartDataForAdmin(
+    query as Record<string, string>
+  );
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Cart Getting Done",
+    data: result,
+  });
+});
+
+export const cartController = {
+  createCart,
+  deleteCart,
+  getAllCartForUser,
+  getAllCartForAdmin,
+};

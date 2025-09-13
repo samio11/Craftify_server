@@ -25,8 +25,8 @@ const createCategory = (0, catchAsync_1.catchAsync)((req, res, next) => __awaite
     });
 }));
 const updateCategory = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b;
-    const payload = Object.assign(Object.assign({}, JSON.parse((_a = req === null || req === void 0 ? void 0 : req.body) === null || _a === void 0 ? void 0 : _a.data)), { imageUrl: (_b = req === null || req === void 0 ? void 0 : req.file) === null || _b === void 0 ? void 0 : _b.path });
+    var _c, _d;
+    const payload = Object.assign(Object.assign({}, JSON.parse((_c = req === null || req === void 0 ? void 0 : req.body) === null || _c === void 0 ? void 0 : _c.data)), { imageUrl: (_d = req === null || req === void 0 ? void 0 : req.file) === null || _d === void 0 ? void 0 : _d.path });
     const id = req.params.id;
     const result = yield category_services_1.categoryServices.updateACategory(id, payload);
     (0, sendResponse_1.sendResponse)(res, {
@@ -47,8 +47,8 @@ const getAllCategory = (0, catchAsync_1.catchAsync)((req, res, next) => __awaite
     });
 }));
 const deleteACategory = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
-    const id = (_a = req === null || req === void 0 ? void 0 : req.params) === null || _a === void 0 ? void 0 : _a.id;
+    var _e;
+    const id = (_e = req === null || req === void 0 ? void 0 : req.params) === null || _e === void 0 ? void 0 : _e.id;
     const result = yield category_services_1.categoryServices.deleteCategory(id);
     (0, sendResponse_1.sendResponse)(res, {
         success: true,

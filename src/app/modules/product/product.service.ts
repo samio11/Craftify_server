@@ -28,7 +28,10 @@ const getAllProducts = async (query: Record<string, string>) => {
     .sort()
     .fields()
     .paginate();
-  const result = await queryBuilder.builder();
+  const result = await queryBuilder
+    .builder()
+    .populate("categoryId")
+    .populate("sellerId");
   return result;
 };
 
