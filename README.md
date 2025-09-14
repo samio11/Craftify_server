@@ -6,6 +6,8 @@ It provides a seamless shopping experience for **customers**, a robust product &
 
 ---
 
+## 📺 Vedio
+https://drive.google.com/file/d/1j0zbbrBP_P2ZG_jMSnnr1TtQB6_Ct7qJ/view?usp=sharing
 ## 🚀 Features
 
 ### 👤 User Management
